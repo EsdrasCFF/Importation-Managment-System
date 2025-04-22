@@ -27,10 +27,10 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { formatCurrency, formatDate } from "@/lib/utils/format";
-import { ImportGeneralInfo } from "@/features/import-process/components/import-general-info";
-import { ImportItemsTable } from "@/features/import-process/components/import-items-table";
-import { PaymentsSection } from "@/features/import-process/components/payments-section";
-import { PhaseTimeline } from "@/features/import-process/components/phase-timeline";
+import { ImportGeneralInfo } from "@/features/import-processes/components/import-general-info";
+import { ImportItemsTable } from "@/features/import-processes/components/import-items-table";
+import { PaymentsSection } from "@/features/import-processes/components/payments-section";
+import { PhaseTimeline } from "@/features/import-processes/components/phase-timeline";
 
 interface ImportProcessPageProps {
   params: {
