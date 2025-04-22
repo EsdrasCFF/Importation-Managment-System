@@ -36,7 +36,9 @@ export function ImportItemsTable({ items }: ImportItemsTableProps) {
     {
       accessorKey: "product.code",
       header: "Code",
-      cell: ({ row }) => <div className="font-medium">{row.original.product.code}</div>,
+      cell: ({ row }) => (
+        <div className="font-medium">{row.original.product.code}</div>
+      ),
     },
     {
       accessorKey: "product.description",
@@ -94,7 +96,10 @@ export function ImportItemsTable({ items }: ImportItemsTableProps) {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href={`/products/${row.original.product.id}`} className="flex w-full">
+              <Link
+                href={`/products/${row.original.product.id}`}
+                className="flex w-full"
+              >
                 View Product Details
               </Link>
             </DropdownMenuItem>
@@ -111,7 +116,7 @@ export function ImportItemsTable({ items }: ImportItemsTableProps) {
   return (
     <div className="space-y-4">
       <DataTable columns={columns} data={items} />
-      
+
       <div className="flex justify-between items-center">
         <div>
           <p className="text-sm text-muted-foreground">
@@ -120,8 +125,11 @@ export function ImportItemsTable({ items }: ImportItemsTableProps) {
         </div>
         <div className="text-right">
           <p className="text-sm text-muted-foreground">
-            Total Value: <span className="font-medium">
-              {formatCurrency(items.reduce((sum, item) => sum + item.totalPrice, 0))}
+            Total Value:{" "}
+            <span className="font-medium">
+              {formatCurrency(
+                items.reduce((sum, item) => sum + item.totalPrice, 0),
+              )}
             </span>
           </p>
         </div>

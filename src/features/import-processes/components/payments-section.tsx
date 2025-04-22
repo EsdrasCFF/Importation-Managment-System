@@ -1,7 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { formatCurrency, formatDate } from "@/lib/utils/format";
 import { cn } from "@/lib/utils";
 import { DollarSign, Plus, CreditCard } from "lucide-react";
@@ -23,26 +29,30 @@ interface PaymentsSectionProps {
   importId: string;
 }
 
-export function PaymentsSection({ 
-  payments, 
-  totalValue, 
-  paymentStatus, 
+export function PaymentsSection({
+  payments,
+  totalValue,
+  paymentStatus,
   paymentProgress,
-  importId
+  importId,
 }: PaymentsSectionProps) {
   const totalPaid = payments.reduce((sum, payment) => sum + payment.amount, 0);
   const remaining = totalValue - totalPaid;
-  
+
   const getStatusColor = (status: string) => {
-    switch(status) {
-      case "complete": return "text-green-500";
-      case "partial": return "text-amber-500";
-      case "pending": return "text-red-500";
-      default: return "";
+    switch (status) {
+      case "complete":
+        return "text-green-500";
+      case "partial":
+        return "text-amber-500";
+      case "pending":
+        return "text-red-500";
+      default:
+        return "";
     }
   };
-  
-  const paymentMethods = ['Bank Transfer', 'Wire Transfer', 'Letter of Credit'];
+
+  const paymentMethods = ["Bank Transfer", "Wire Transfer", "Letter of Credit"];
 
   return (
     <div className="space-y-6">
@@ -57,43 +67,52 @@ export function PaymentsSection({
           <div className="flex justify-between items-center">
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Total Value</p>
-              <p className="text-lg font-medium">{formatCurrency(totalValue)}</p>
+              <p className="text-lg font-medium">
+                {formatCurrency(totalValue)}
+              </p>
             </div>
             <div className="space-y-1 text-right">
               <p className="text-sm text-muted-foreground">Payment Status</p>
-              <p className={cn(
-                "text-lg font-medium",
-                getStatusColor(paymentStatus)
-              )}>
-                {paymentStatus === "complete" ? "Paid" : 
-                 paymentStatus === "partial" ? "Partially Paid" : "Pending"}
+              <p
+                className={cn(
+                  "text-lg font-medium",
+                  getStatusColor(paymentStatus),
+                )}
+              >
+                {paymentStatus === "complete"
+                  ? "Paid"
+                  : paymentStatus === "partial"
+                    ? "Partially Paid"
+                    : "Pending"}
               </p>
             </div>
           </div>
-          
+
           <div className="pt-2">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm text-muted-foreground">
                 {formatCurrency(totalPaid)} of {formatCurrency(totalValue)} paid
               </span>
-              <span className="text-sm font-medium">
-                {paymentProgress}%
-              </span>
+              <span className="text-sm font-medium">{paymentProgress}%</span>
             </div>
             <Progress value={paymentProgress} className="h-2" />
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             <div className="border rounded-lg p-4 space-y-1">
               <p className="text-sm text-muted-foreground">Paid Amount</p>
-              <p className="text-lg font-medium text-green-500">{formatCurrency(totalPaid)}</p>
+              <p className="text-lg font-medium text-green-500">
+                {formatCurrency(totalPaid)}
+              </p>
               <p className="text-xs text-muted-foreground">
                 {payments.length} payment(s) received
               </p>
             </div>
             <div className="border rounded-lg p-4 space-y-1">
               <p className="text-sm text-muted-foreground">Remaining Amount</p>
-              <p className="text-lg font-medium text-amber-500">{formatCurrency(remaining)}</p>
+              <p className="text-lg font-medium text-amber-500">
+                {formatCurrency(remaining)}
+              </p>
               <p className="text-xs text-muted-foreground">
                 {3 - payments.length} installment(s) remaining
               </p>
@@ -101,7 +120,7 @@ export function PaymentsSection({
           </div>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
@@ -123,7 +142,7 @@ export function PaymentsSection({
           ) : (
             <div className="space-y-4">
               {payments.map((payment) => (
-                <div 
+                <div
                   key={payment.id}
                   className="flex items-center gap-4 p-4 border rounded-lg"
                 >
@@ -150,11 +169,9 @@ export function PaymentsSection({
                   </div>
                 </div>
               ))}
-              
+
               {payments.length < 3 && (
-                <div 
-                  className="flex items-center gap-4 p-4 border border-dashed rounded-lg"
-                >
+                <div className="flex items-center gap-4 p-4 border border-dashed rounded-lg">
                   <div className="p-2 rounded-full bg-muted">
                     <CreditCard className="h-5 w-5 text-muted-foreground" />
                   </div>
@@ -164,16 +181,16 @@ export function PaymentsSection({
                         Installment {payments.length + 1}
                       </p>
                       <p className="font-medium">
-                        {formatCurrency(remaining < totalValue / 3 ? remaining : totalValue / 3)}
+                        {formatCurrency(
+                          remaining < totalValue / 3
+                            ? remaining
+                            : totalValue / 3,
+                        )}
                       </p>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <p className="text-muted-foreground">
-                        Payment pending
-                      </p>
-                      <Badge variant="outline">
-                        Scheduled
-                      </Badge>
+                      <p className="text-muted-foreground">Payment pending</p>
+                      <Badge variant="outline">Scheduled</Badge>
                     </div>
                   </div>
                 </div>

@@ -100,16 +100,22 @@ const mockImports = [
   },
 ];
 
-type Import = typeof mockImports[0];
+type Import = (typeof mockImports)[0];
 
 const getPhaseLabel = (phase: number) => {
-  switch(phase) {
-    case 1: return "Proforma Invoice";
-    case 2: return "Freight Forwarding";
-    case 3: return "Shipping Documentation";
-    case 4: return "Customs Clearance";
-    case 5: return "Cost Closing";
-    default: return "Unknown";
+  switch (phase) {
+    case 1:
+      return "Proforma Invoice";
+    case 2:
+      return "Freight Forwarding";
+    case 3:
+      return "Shipping Documentation";
+    case 4:
+      return "Customs Clearance";
+    case 5:
+      return "Cost Closing";
+    default:
+      return "Unknown";
   }
 };
 
@@ -117,15 +123,15 @@ const getStatusBadge = (status: string, phase: number, isDelayed: boolean) => {
   if (status === "completed") {
     return <Badge className="bg-green-500">Completed</Badge>;
   }
-  
+
   if (status === "cancelled") {
     return <Badge variant="destructive">Cancelled</Badge>;
   }
-  
+
   if (isDelayed) {
     return <Badge variant="destructive">Delayed</Badge>;
   }
-  
+
   return (
     <Badge className="bg-blue-500">
       Phase {phase}: {getPhaseLabel(phase)}
@@ -182,7 +188,12 @@ const getImportColumns = (): ColumnDef<Import>[] => [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => getStatusBadge(row.original.status, row.original.currentPhase, row.original.isDelayed),
+    cell: ({ row }) =>
+      getStatusBadge(
+        row.original.status,
+        row.original.currentPhase,
+        row.original.isDelayed,
+      ),
   },
   {
     id: "actions",
@@ -197,17 +208,26 @@ const getImportColumns = (): ColumnDef<Import>[] => [
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Link href={`/import-processes/${row.original.id}`} className="flex w-full">
+            <Link
+              href={`/import-processes/${row.original.id}`}
+              className="flex w-full"
+            >
               View Details
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href={`/import-processes/${row.original.id}/edit`} className="flex w-full">
+            <Link
+              href={`/import-processes/${row.original.id}/edit`}
+              className="flex w-full"
+            >
               Edit Process
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href={`/import-processes/${row.original.id}/timeline`} className="flex w-full">
+            <Link
+              href={`/import-processes/${row.original.id}/timeline`}
+              className="flex w-full"
+            >
               View Timeline
             </Link>
           </DropdownMenuItem>
@@ -218,24 +238,26 @@ const getImportColumns = (): ColumnDef<Import>[] => [
 ];
 
 interface ImportProcessDataTableProps {
-  filter?: 'active' | 'completed' | 'delayed';
+  filter?: "active" | "completed" | "delayed";
 }
 
-export function ImportProcessDataTable({ filter }: ImportProcessDataTableProps = {}) {
+export function ImportProcessDataTable({
+  filter,
+}: ImportProcessDataTableProps = {}) {
   let filteredData = [...mockImports];
-  
-  if (filter === 'active') {
-    filteredData = mockImports.filter(imp => imp.status === 'active');
-  } else if (filter === 'completed') {
-    filteredData = mockImports.filter(imp => imp.status === 'completed');
-  } else if (filter === 'delayed') {
-    filteredData = mockImports.filter(imp => imp.isDelayed);
+
+  if (filter === "active") {
+    filteredData = mockImports.filter((imp) => imp.status === "active");
+  } else if (filter === "completed") {
+    filteredData = mockImports.filter((imp) => imp.status === "completed");
+  } else if (filter === "delayed") {
+    filteredData = mockImports.filter((imp) => imp.isDelayed);
   }
-  
+
   return (
-    <DataTable 
-      columns={getImportColumns()} 
-      data={filteredData} 
+    <DataTable
+      columns={getImportColumns()}
+      data={filteredData}
       searchKey="reference"
       searchPlaceholder="Search by reference..."
     />

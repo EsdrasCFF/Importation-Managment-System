@@ -74,7 +74,7 @@ export function Sidebar() {
         className={cn(
           "fixed inset-y-0 left-0 z-40 w-64 bg-card border-r border-border transition-transform duration-300 ease-in-out",
           sidebarOpen ? "translate-x-0" : "-translate-x-full",
-          "md:translate-x-0" // Always visible on md and up
+          "md:translate-x-0", // Always visible on md and up
         )}
       >
         <div className="flex flex-col h-full">
@@ -96,7 +96,7 @@ export function Sidebar() {
                     variant={isActive ? "secondary" : "ghost"}
                     className={cn(
                       "w-full justify-start gap-3",
-                      isActive && "font-medium"
+                      isActive && "font-medium",
                     )}
                   >
                     <item.icon className="h-4 w-4" />

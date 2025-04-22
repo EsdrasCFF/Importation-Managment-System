@@ -34,6 +34,6 @@ export const useGlobalStore = create<GlobalStore>()(
     }),
     {
       name: "global-store",
-    }
-  )
+    },
+  ),
 );

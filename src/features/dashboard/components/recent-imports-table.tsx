@@ -66,16 +66,22 @@ const mockImports = [
   },
 ];
 
-type Import = typeof mockImports[0];
+type Import = (typeof mockImports)[0];
 
 const getPhaseLabel = (phase: number) => {
-  switch(phase) {
-    case 1: return "Proforma Invoice";
-    case 2: return "Freight Forwarding";
-    case 3: return "Shipping Documentation";
-    case 4: return "Customs Clearance";
-    case 5: return "Cost Closing";
-    default: return "Unknown";
+  switch (phase) {
+    case 1:
+      return "Proforma Invoice";
+    case 2:
+      return "Freight Forwarding";
+    case 3:
+      return "Shipping Documentation";
+    case 4:
+      return "Customs Clearance";
+    case 5:
+      return "Cost Closing";
+    default:
+      return "Unknown";
   }
 };
 
@@ -83,11 +89,11 @@ const getStatusBadge = (status: string, phase: number) => {
   if (status === "completed") {
     return <Badge className="bg-green-500">Completed</Badge>;
   }
-  
+
   if (status === "cancelled") {
     return <Badge variant="destructive">Cancelled</Badge>;
   }
-  
+
   return (
     <Badge className="bg-blue-500">
       Phase {phase}: {getPhaseLabel(phase)}
@@ -141,7 +147,8 @@ const columns: ColumnDef<Import>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => getStatusBadge(row.original.status, row.original.currentPhase),
+    cell: ({ row }) =>
+      getStatusBadge(row.original.status, row.original.currentPhase),
   },
   {
     id: "actions",
@@ -156,5 +163,12 @@ const columns: ColumnDef<Import>[] = [
 ];
 
 export function RecentImportsTable() {
-  return <DataTable columns={columns} data={mockImports} searchKey="reference" searchPlaceholder="Search references..." />;
+  return (
+    <DataTable
+      columns={columns}
+      data={mockImports}
+      searchKey="reference"
+      searchPlaceholder="Search references..."
+    />
+  );
 }

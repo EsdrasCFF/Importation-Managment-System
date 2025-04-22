@@ -30,15 +30,18 @@ export function ImportProcessFilters() {
 
   const handleApplyFilters = () => {
     const newFilters: string[] = [];
-    
+
     if (phase) newFilters.push(`Phase: ${phase}`);
     if (supplier) newFilters.push(`Supplier: ${supplier}`);
-    if (dateFrom && dateTo) newFilters.push(`Date: ${format(dateFrom, "MMM dd, yyyy")} - ${format(dateTo, "MMM dd, yyyy")}`);
-    
+    if (dateFrom && dateTo)
+      newFilters.push(
+        `Date: ${format(dateFrom, "MMM dd, yyyy")} - ${format(dateTo, "MMM dd, yyyy")}`,
+      );
+
     setActiveFilters(newFilters);
     setOpen(false);
   };
-  
+
   const handleClearFilters = () => {
     setPhase("");
     setSupplier("");
@@ -46,10 +49,10 @@ export function ImportProcessFilters() {
     setDateTo(undefined);
     setActiveFilters([]);
   };
-  
+
   const removeFilter = (filter: string) => {
-    setActiveFilters(activeFilters.filter(f => f !== filter));
-    
+    setActiveFilters(activeFilters.filter((f) => f !== filter));
+
     if (filter.startsWith("Phase:")) setPhase("");
     if (filter.startsWith("Supplier:")) setSupplier("");
     if (filter.startsWith("Date:")) {
@@ -89,14 +92,20 @@ export function ImportProcessFilters() {
                   <SelectContent>
                     <SelectItem value="">All Phases</SelectItem>
                     <SelectItem value="1">Phase 1: Proforma Invoice</SelectItem>
-                    <SelectItem value="2">Phase 2: Freight Forwarding</SelectItem>
-                    <SelectItem value="3">Phase 3: Shipping Documentation</SelectItem>
-                    <SelectItem value="4">Phase 4: Customs Clearance</SelectItem>
+                    <SelectItem value="2">
+                      Phase 2: Freight Forwarding
+                    </SelectItem>
+                    <SelectItem value="3">
+                      Phase 3: Shipping Documentation
+                    </SelectItem>
+                    <SelectItem value="4">
+                      Phase 4: Customs Clearance
+                    </SelectItem>
                     <SelectItem value="5">Phase 5: Cost Closing</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="space-y-2">
                 <h4 className="font-medium text-sm">Supplier</h4>
                 <Select value={supplier} onValueChange={setSupplier}>
@@ -105,7 +114,7 @@ export function ImportProcessFilters() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">All Suppliers</SelectItem>
-                    {mockSuppliers.map(supplier => (
+                    {mockSuppliers.map((supplier) => (
                       <SelectItem key={supplier.id} value={supplier.id}>
                         {supplier.name}
                       </SelectItem>
@@ -113,7 +122,7 @@ export function ImportProcessFilters() {
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-2">
                   <h4 className="font-medium text-sm">From Date</h4>
@@ -123,7 +132,7 @@ export function ImportProcessFilters() {
                         variant="outline"
                         className={cn(
                           "w-full justify-start text-left font-normal",
-                          !dateFrom && "text-muted-foreground"
+                          !dateFrom && "text-muted-foreground",
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -140,7 +149,7 @@ export function ImportProcessFilters() {
                     </PopoverContent>
                   </Popover>
                 </div>
-                
+
                 <div className="space-y-2">
                   <h4 className="font-medium text-sm">To Date</h4>
                   <Popover>
@@ -149,7 +158,7 @@ export function ImportProcessFilters() {
                         variant="outline"
                         className={cn(
                           "w-full justify-start text-left font-normal",
-                          !dateTo && "text-muted-foreground"
+                          !dateTo && "text-muted-foreground",
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
@@ -167,29 +176,35 @@ export function ImportProcessFilters() {
                   </Popover>
                 </div>
               </div>
-              
+
               <div className="flex justify-between">
-                <Button variant="outline" onClick={handleClearFilters}>Clear</Button>
+                <Button variant="outline" onClick={handleClearFilters}>
+                  Clear
+                </Button>
                 <Button onClick={handleApplyFilters}>Apply Filters</Button>
               </div>
             </div>
           </PopoverContent>
         </Popover>
-        
+
         {activeFilters.length > 0 && (
           <Button variant="ghost" onClick={handleClearFilters}>
             Clear all filters
           </Button>
         )}
       </div>
-      
+
       {activeFilters.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {activeFilters.map((filter, index) => (
-            <Badge key={index} variant="secondary" className="flex items-center gap-1 px-3 py-1">
+            <Badge
+              key={index}
+              variant="secondary"
+              className="flex items-center gap-1 px-3 py-1"
+            >
               {filter}
-              <X 
-                className="h-3 w-3 cursor-pointer" 
+              <X
+                className="h-3 w-3 cursor-pointer"
                 onClick={() => removeFilter(filter)}
               />
             </Badge>

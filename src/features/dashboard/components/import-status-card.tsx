@@ -85,7 +85,7 @@ export function ImportStatusCard() {
                 value={(phase.count / totalImports) * 100}
                 className={`h-2 ${phase.color.replace(
                   "bg-",
-                  "bg-opacity-70 bg-"
+                  "bg-opacity-70 bg-",
                 )} border`}
               />
             </div>

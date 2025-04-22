@@ -120,7 +120,7 @@ export default function ImportProcessPage({ params }: ImportProcessPageProps) {
   const getStatusBadge = (
     status: string,
     phase: number,
-    isDelayed: boolean
+    isDelayed: boolean,
   ) => {
     if (status === "completed") {
       return <Badge className="bg-green-500">Completed</Badge>;
@@ -156,7 +156,7 @@ export default function ImportProcessPage({ params }: ImportProcessPageProps) {
               {getStatusBadge(
                 importProcess.status,
                 importProcess.currentPhase,
-                importProcess.isDelayed
+                importProcess.isDelayed,
               )}
             </h2>
             <p className="text-muted-foreground">
@@ -277,8 +277,8 @@ export default function ImportProcessPage({ params }: ImportProcessPageProps) {
                     {importProcess.paymentStatus === "complete"
                       ? "Paid"
                       : importProcess.paymentStatus === "partial"
-                      ? "Partially Paid"
-                      : "Pending"}
+                        ? "Partially Paid"
+                        : "Pending"}
                   </Badge>
                 </div>
                 <Progress
